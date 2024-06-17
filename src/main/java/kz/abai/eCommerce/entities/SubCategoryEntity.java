@@ -5,23 +5,21 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.math.BigDecimal;
+import java.util.List;
 
-@Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "goods")
+@Builder
+@Entity
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-public class GoodsEntity extends Auditable{
-    @NotNull
-    private String goodId;
+@Table(name = "sub_category")
+public class SubCategoryEntity extends Auditable{
     @NotNull
     private String name;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "sub_category_id")
-    private SubCategoryEntity subCategory;
-    private BigDecimal cost;
+    @ManyToOne
+    private CategoryEntity category;
+    @OneToMany(mappedBy = "subCategory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<GoodsEntity> goods;
 }
