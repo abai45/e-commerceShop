@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 import static java.util.Collections.emptyMap;
 import static kz.abai.eCommerce.utils.RequestUtils.getResponse;
 import static org.springframework.http.HttpStatus.OK;
@@ -24,7 +26,7 @@ public class ClientResource {
     
     @PostMapping("/register")
     public ResponseEntity<Response> registerClient(@RequestBody @Valid ClientRequestDto client, HttpServletRequest request) {
-        clientService.createNewClient(client.getFirstName(), client.getLastName(), client.getEmail(), client.getEmail(), client.getPhone(), client.getPassword());
-        return ResponseEntity.ok().body(getResponse(request, emptyMap(), "Registered", OK));
+        var clientDto = clientService.createNewClient(client.getFirstName(), client.getLastName(), client.getEmail(), client.getPhone(), client.getPassword());
+        return ResponseEntity.ok().body(getResponse(request, Map.of("client", clientDto), "Registered", OK));
     }
 }

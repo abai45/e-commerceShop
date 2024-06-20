@@ -1,5 +1,7 @@
 package kz.abai.eCommerce.service;
 
+import kz.abai.eCommerce.dto.ClientDto;
+
 public interface ClientService {
-    void createNewClient(String firstName, String lastName, String email, String email1, String phone, String password);
+    ClientDto createNewClient(String firstName, String lastName, String email, String phone, String password);
 }
