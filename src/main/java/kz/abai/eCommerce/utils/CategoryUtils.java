@@ -16,8 +16,7 @@ public class CategoryUtils {
                 .description(description)
                 .status(CategoryStatus.ACTIVE)
                 .build();
-        categoryRepository.save(category);
-        return category;
+        return categoryRepository.save(category);
     }
     public CategoryEntity createSubcategoryEntity(String name, String description, CategoryEntity parentCategory) {
         var subCategory = CategoryEntity.builder()
@@ -26,9 +25,7 @@ public class CategoryUtils {
                 .status(CategoryStatus.ACTIVE)
                 .parentCategory(parentCategory)
                 .build();
-        parentCategory.getSubCategories().add(subCategory);
-        categoryRepository.save(subCategory);
-        categoryRepository.save(parentCategory);
-        return subCategory;
+        parentCategory.addSubCategory(subCategory);
+        return categoryRepository.save(subCategory);
     }
 }

@@ -21,7 +21,7 @@ public class GoodsEntity extends Auditable{
     @NotNull
     private String name;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "sub_category_id")
-    private SubCategoryEntity subCategory;
+    @JoinColumn(name = "category_id")
+        private CategoryEntity category;
     private BigDecimal cost;
 }
