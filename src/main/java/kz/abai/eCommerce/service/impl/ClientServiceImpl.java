@@ -29,4 +29,5 @@ public class ClientServiceImpl implements ClientService {
         var clientDto = clientMapper.INSTANCE.toDto(newClient);
         return clientDto;
     }
+
 }

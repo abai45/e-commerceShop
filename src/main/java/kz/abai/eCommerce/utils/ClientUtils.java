@@ -19,7 +19,6 @@ import static java.time.LocalDateTime.now;
 @Component
 @RequiredArgsConstructor
 public class ClientUtils {
-    private final ClientRepository clientRepository;
     private final BCryptPasswordEncoder encoder;
     private final RoleRepository roleRepository;
 
