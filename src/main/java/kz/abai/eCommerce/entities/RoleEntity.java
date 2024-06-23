@@ -1,8 +1,7 @@
 package kz.abai.eCommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import kz.abai.eCommerce.enums.AuthorityEnum;
 import lombok.*;
 
@@ -15,6 +14,8 @@ import lombok.*;
 @Table(name = "roles")
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class RoleEntity extends Auditable{
+    @Column(nullable = false, unique = true)
     private String name;
+    @Enumerated(EnumType.STRING)
     private AuthorityEnum authorities;
 }

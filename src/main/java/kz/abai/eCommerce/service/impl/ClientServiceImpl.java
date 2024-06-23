@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -23,9 +22,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto createNewClient(String firstName, String lastName, String email, String phone, String password) {
+        clientUtils.initRoles();
         var role = roleRepository.findByNameIgnoreCase(AuthorityEnum.USER.name())
                 .orElseThrow(() -> new RuntimeException("Role By Name not found"));
-        var newClient = clientUtils.createNewClientEntity(firstName, lastName, email, password, phone, role);
+        var newClient = clientRepository.save(clientUtils.createNewClientEntity(firstName, lastName, email, password, phone, role));
         var clientDto = clientMapper.INSTANCE.toDto(newClient);
         return clientDto;
     }

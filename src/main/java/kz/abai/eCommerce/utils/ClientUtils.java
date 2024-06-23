@@ -1,8 +1,12 @@
 package kz.abai.eCommerce.utils;
 
+import jakarta.annotation.PostConstruct;
 import kz.abai.eCommerce.entities.ClientEntity;
 import kz.abai.eCommerce.entities.RoleEntity;
+import kz.abai.eCommerce.enums.AuthorityEnum;
 import kz.abai.eCommerce.repository.ClientRepository;
+import kz.abai.eCommerce.repository.RoleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -13,15 +17,12 @@ import java.util.UUID;
 import static java.time.LocalDateTime.now;
 
 @Component
+@RequiredArgsConstructor
 public class ClientUtils {
     private final ClientRepository clientRepository;
     private final BCryptPasswordEncoder encoder;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    public ClientUtils(ClientRepository clientRepository, BCryptPasswordEncoder encoder) {
-        this.clientRepository = clientRepository;
-        this.encoder = encoder;
-    }
     public ClientEntity createNewClientEntity(String firstname, String lastname, String email, String password, String phone, RoleEntity role) {
         return ClientEntity.builder()
                 .userId(UUID.randomUUID().toString())
@@ -38,5 +39,20 @@ public class ClientUtils {
                 .balance(BigDecimal.ZERO)
                 .lastLogin(now())
                 .build();
+    }
+    @PostConstruct
+    public void initRoles() {
+        createRoleIfNotFound(AuthorityEnum.USER);
+        createRoleIfNotFound(AuthorityEnum.MANAGER);
+        createRoleIfNotFound(AuthorityEnum.ADMIN);
+    }
+
+    private void createRoleIfNotFound(AuthorityEnum roleEnum) {
+        if(!roleRepository.existsByName(roleEnum.name())) {
+            RoleEntity role = new RoleEntity();
+            role.setName(roleEnum.name());
+            role.setAuthorities(roleEnum);
+            roleRepository.save(role);
+        }
     }
 }
