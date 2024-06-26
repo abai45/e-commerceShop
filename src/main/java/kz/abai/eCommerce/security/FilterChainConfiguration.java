@@ -33,6 +33,8 @@ public class FilterChainConfiguration {
                 )
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("client/register").permitAll()
+                                .requestMatchers("category/newcategory").permitAll() //временно
+                                .requestMatchers("category/subcategory").permitAll() //временно
                                 .anyRequest().authenticated()
                 );
         return http.build();

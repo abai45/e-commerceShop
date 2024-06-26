@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 public class CategoryUtils {
     private final CategoryRepository categoryRepository;
     public CategoryEntity createNewCategoryEntity(String name, String description) {
+        if(categoryRepository.existsByNameIgnoreCase(name)){
+            throw new RuntimeException("This category already exists");
+        }
         var category = CategoryEntity.builder()
                 .name(name)
                 .description(description)
@@ -19,6 +22,9 @@ public class CategoryUtils {
         return categoryRepository.save(category);
     }
     public CategoryEntity createSubcategoryEntity(String name, String description, CategoryEntity parentCategory) {
+        if(categoryRepository.existsByNameIgnoreCase(name)){
+            throw new RuntimeException("This category already exists");
+        }
         var subCategory = CategoryEntity.builder()
                 .name(name)
                 .description(description)
