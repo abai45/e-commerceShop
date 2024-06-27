@@ -35,6 +35,7 @@ public class FilterChainConfiguration {
                         request.requestMatchers("client/register").permitAll()
                                 .requestMatchers("category/newcategory").permitAll() //временно
                                 .requestMatchers("category/subcategory").permitAll() //временно
+                                .requestMatchers("category/remove").permitAll() //временно
                                 .anyRequest().authenticated()
                 );
         return http.build();

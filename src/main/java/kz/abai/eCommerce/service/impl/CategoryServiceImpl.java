@@ -37,6 +37,14 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.INSTANCE.toDto(subCategoryEntity);
     }
 
+    @Override
+    public void deleteCategory(String name) {
+        var categoryEntity = getCategoryByName(name);
+        categoryRepository.deleteAll(categoryEntity.getSubCategories());
+        categoryRepository.delete(categoryEntity);
+    }
+
+
     private CategoryEntity getCategoryByName(String name) {
         return categoryRepository.findByNameIgnoreCase(name)
                 .orElseThrow(() -> new RuntimeException("Parent Category by name not found"));
