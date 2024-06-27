@@ -20,8 +20,10 @@ public class GoodsEntity extends Auditable{
     private String goodId;
     @NotNull
     private String name;
+    private String imgUrl;
+    private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
-        private CategoryEntity category;
+    private CategoryEntity category;
     private BigDecimal cost;
 }
