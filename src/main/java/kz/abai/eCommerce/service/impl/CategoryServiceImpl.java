@@ -1,5 +1,6 @@
 package kz.abai.eCommerce.service.impl;
 
+import jakarta.transaction.Transactional;
 import kz.abai.eCommerce.dto.CategoryDto;
 import kz.abai.eCommerce.entities.CategoryEntity;
 import kz.abai.eCommerce.mapper.CategoryMapper;
@@ -37,6 +38,22 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.INSTANCE.toDto(subCategoryEntity);
     }
 
+    @Override
+    public CategoryDto updateCategory(String name,String newName, String description, String parentCategoryName) {
+        var categoryEntity = getCategoryByName(name);
+        categoryEntity.setName(newName);
+        categoryEntity.setDescription(description);
+        if(parentCategoryName !=null && !parentCategoryName.isBlank()) {
+            var parentCategory = getCategoryByName(parentCategoryName);
+            categoryEntity.setParentCategory(parentCategory);
+        } else {
+            categoryEntity.setParentCategory(null);
+        }
+        categoryRepository.save(categoryEntity);
+        return categoryMapper.toDto(categoryEntity);
+    }
+
+    @Transactional
     @Override
     public void deleteCategory(String name) {
         var categoryEntity = getCategoryByName(name);

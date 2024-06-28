@@ -7,15 +7,15 @@ import kz.abai.eCommerce.repository.CategoryRepository;
 import kz.abai.eCommerce.repository.GoodsRepository;
 import kz.abai.eCommerce.service.GoodsService;
 import kz.abai.eCommerce.utils.GoodsUtils;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static kz.abai.eCommerce.constants.Constants.DEFAULT_IMG_URL;
+
 @Service
 public class GoodsServiceImpl implements GoodsService {
-    private static final String DEFAULT_IMG_URL = "https://cdn.vectorstock.com/i/500p/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg";
 
     private GoodsRepository goodsRepository;
     private GoodsUtils goodsUtils;
@@ -32,7 +32,7 @@ public class GoodsServiceImpl implements GoodsService {
     public GoodDto addGood(String name, String description, String imgUrl, String categoryName, BigDecimal cost) {
         var categoryEntity = getCategoryByName(categoryName);
         imgUrl = Optional.ofNullable(imgUrl).filter(url -> !url.isEmpty()).orElse(DEFAULT_IMG_URL);
-        
+
         var goodEntity = goodsRepository.save(goodsUtils.addNewGoodEntity(name, description, imgUrl, categoryEntity, cost));
         return goodsMapper.toDto(goodEntity);
     }
