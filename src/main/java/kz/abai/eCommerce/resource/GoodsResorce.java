@@ -41,4 +41,14 @@ public class GoodsResorce {
         var good = goodsService.getGoodBySlug(slug);
         return ResponseEntity.ok().body(getResponse(request, Map.of("good", good), "Good retrieved", OK));
     }
+    @GetMapping()
+    public ResponseEntity<Response> getAllGoods(HttpServletRequest request) {
+        var goodsList = goodsService.getAllGoods();
+        return ResponseEntity.ok().body(getResponse(request, Map.of("goodsList", goodsList), "All goods retrieved", OK));
+    }
+    @GetMapping("/{categoryName}")
+    public ResponseEntity<Response> getAllGoodsByCategory(@PathVariable String categoryName, HttpServletRequest request) {
+        var goodsList = goodsService.getAllGoodsByCategoryName(categoryName);
+        return ResponseEntity.ok().body(getResponse(request, Map.of("goodsList", goodsList),"All goods by category retrived", OK));
+    }
 }
