@@ -1,5 +1,6 @@
 package kz.abai.eCommerce.service;
 
+import kz.abai.eCommerce.service.SlugService;
 import kz.abai.eCommerce.service.impl.SlugServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,5 +39,17 @@ public class SlugServiceImplTest {
     @Test
     public void testCreateSlugWithEmptyInput() {
         assertEquals("", slugService.createSlug(""));
+    }
+
+    @Test
+    public void testCreateSlugWithKazakhCharacters() {
+        assertEquals("a", slugService.createSlug("ә"));
+        assertEquals("g", slugService.createSlug("ғ"));
+        assertEquals("k", slugService.createSlug("қ"));
+        assertEquals("n", slugService.createSlug("ң"));
+        assertEquals("o", slugService.createSlug("ө"));
+        assertEquals("u", slugService.createSlug("ұ"));
+        assertEquals("u", slugService.createSlug("ү"));
+        assertEquals("i", slugService.createSlug("і"));
     }
 }

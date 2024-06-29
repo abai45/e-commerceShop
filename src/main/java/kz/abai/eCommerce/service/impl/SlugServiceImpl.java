@@ -42,6 +42,15 @@ public class SlugServiceImpl implements SlugService {
         CYRILLIC_TO_LATIN_MAP.put('я', "ya");
         CYRILLIC_TO_LATIN_MAP.put('ь', "");
         CYRILLIC_TO_LATIN_MAP.put('ъ', "");
+
+        CYRILLIC_TO_LATIN_MAP.put('ә', "a");
+        CYRILLIC_TO_LATIN_MAP.put('ғ', "g");
+        CYRILLIC_TO_LATIN_MAP.put('қ', "k");
+        CYRILLIC_TO_LATIN_MAP.put('ң', "n");
+        CYRILLIC_TO_LATIN_MAP.put('ө', "o");
+        CYRILLIC_TO_LATIN_MAP.put('ұ', "u");
+        CYRILLIC_TO_LATIN_MAP.put('ү', "u");
+        CYRILLIC_TO_LATIN_MAP.put('і', "i");
     }
 
     @Override
