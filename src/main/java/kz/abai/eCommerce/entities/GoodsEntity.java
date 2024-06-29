@@ -20,6 +20,8 @@ public class GoodsEntity extends Auditable{
     private String goodId;
     @NotNull
     private String name;
+    @NotNull
+    private String slug;
     private String imgUrl;
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)

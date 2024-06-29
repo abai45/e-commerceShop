@@ -10,10 +10,11 @@ import java.util.UUID;
 
 @Component
 public class GoodsUtils {
-    public GoodsEntity addNewGoodEntity(String name, String description, String imgUrl, CategoryEntity category, BigDecimal cost) {
+    public GoodsEntity addNewGoodEntity(String name,String slug, String description, String imgUrl, CategoryEntity category, BigDecimal cost) {
         return GoodsEntity.builder()
                 .goodId(UUID.randomUUID().toString())
                 .name(name)
+                .slug(slug)
                 .description(description)
                 .imgUrl(imgUrl)
                 .category(category)

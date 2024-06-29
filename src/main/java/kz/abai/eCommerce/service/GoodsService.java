@@ -11,4 +11,6 @@ public interface GoodsService {
     GoodDto updateGoodInfo(String goodId, String name, String description, String imgUrl, String categoryName, BigDecimal cost);
     List<GoodDto> getAllGoods();
     List<GoodDto> getAllGoodsByCategoryName(String category);
+    GoodDto getGood(String goodId);
+    GoodDto getGoodBySlug(String slug);
 }

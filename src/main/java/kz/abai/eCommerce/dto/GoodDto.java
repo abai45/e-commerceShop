@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 public class GoodDto {
     @NotNull
     private String name;
+    private String slug;
     private String description;
     private String imgUrl;
     @NotNull

@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface GoodsRepository extends JpaRepository<GoodsEntity, Long> {
     Optional<GoodsEntity> findByGoodId(String goodId);
     Optional<GoodsEntity> findAllByCategory(CategoryEntity category);
+    Optional<GoodsEntity> findBySlug(String slug);
 }
