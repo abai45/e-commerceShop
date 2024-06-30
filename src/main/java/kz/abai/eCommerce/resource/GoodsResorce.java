@@ -26,14 +26,14 @@ public class GoodsResorce {
         var good = goodsService.addGood(goodDto.getName(), goodDto.getDescription(), goodDto.getImgUrl(), goodDto.getCategoryName(), goodDto.getCost());
         return ResponseEntity.ok().body(getResponse(request, Map.of("good", good), "New good added", OK));
     }
-    @PostMapping("/update/{goodId}")
-    public ResponseEntity<Response> updateGood(@PathVariable String goodId, @RequestBody @Valid GoodDto goodDto, HttpServletRequest request) {
-        var good = goodsService.updateGoodInfo(goodId, goodDto.getName(), goodDto.getDescription(),  goodDto.getImgUrl(), goodDto.getCategoryName(), goodDto.getCost());
+    @PostMapping("/update/{slug}")
+    public ResponseEntity<Response> updateGood(@PathVariable String slug, @RequestBody @Valid GoodDto goodDto, HttpServletRequest request) {
+        var good = goodsService.updateGoodInfo(slug, goodDto.getName(), goodDto.getDescription(),  goodDto.getImgUrl(), goodDto.getCategoryName(), goodDto.getCost());
         return ResponseEntity.ok().body(getResponse(request, Map.of("good", good), "Good updated", OK));
     }
-    @PostMapping("/delete/{goodId}")
-    public ResponseEntity<Response> deleteGood(@PathVariable String goodId, HttpServletRequest request) {
-        goodsService.deleteGood(goodId);
+    @PostMapping("/delete/{slug}")
+    public ResponseEntity<Response> deleteGood(@PathVariable String slug, HttpServletRequest request) {
+        goodsService.deleteGood(slug);
         return ResponseEntity.ok().body(getResponse(request, emptyMap(), "Good deleted", OK));
     }
     @GetMapping("/{slug}")

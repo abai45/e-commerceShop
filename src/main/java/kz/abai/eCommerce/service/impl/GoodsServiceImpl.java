@@ -51,14 +51,14 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public void deleteGood(String goodId) {
-        var goodEntity = getGoodByGoodId(goodId);
+    public void deleteGood(String slug) {
+        var goodEntity = getGoodEntityBySlug(slug);
         goodsRepository.delete(goodEntity);
     }
 
     @Override
-    public GoodDto updateGoodInfo(String goodId, String name, String description, String imgUrl, String categoryName, BigDecimal cost) {
-        var goodEntity = getGoodByGoodId(goodId);
+    public GoodDto updateGoodInfo(String slug, String name, String description, String imgUrl, String categoryName, BigDecimal cost) {
+        var goodEntity = getGoodEntityBySlug(slug);
         var categoryEntity = getCategoryByName(categoryName);
         goodEntity.setName(name);
         goodEntity.setDescription(description);
@@ -91,11 +91,6 @@ public class GoodsServiceImpl implements GoodsService {
     public GoodDto getGoodBySlug(String slug) {
         var goodEntity = getGoodEntityBySlug(slug);
         return goodsMapper.toDto(goodEntity);
-    }
-
-    private GoodsEntity getGoodByGoodId(String goodId) {
-        return goodsRepository.findByGoodId(goodId)
-                .orElseThrow(() -> new RuntimeException("Good by good id not found"));
     }
 
     private GoodsEntity getGoodEntityBySlug(String slug) {

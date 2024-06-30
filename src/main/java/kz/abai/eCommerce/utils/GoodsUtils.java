@@ -12,10 +12,12 @@ import static kz.abai.eCommerce.constants.Constants.CODE_LENGTH;
 @Component
 public class GoodsUtils {
     public GoodsEntity addNewGoodEntity(String name,String slug, String description, String imgUrl, CategoryEntity category, BigDecimal cost) {
+        var goodCode = generateGoodCode();
+        var slugGood = slug+"-"+goodCode;
         return GoodsEntity.builder()
-                .goodCode(generateGoodCode())
+                .goodCode(goodCode)
                 .name(name)
-                .slug(slug)
+                .slug(slugGood)
                 .description(description)
                 .imgUrl(imgUrl)
                 .category(category)

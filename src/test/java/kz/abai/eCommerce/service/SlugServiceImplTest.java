@@ -1,6 +1,5 @@
 package kz.abai.eCommerce.service;
 
-import kz.abai.eCommerce.service.SlugService;
 import kz.abai.eCommerce.service.impl.SlugServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
