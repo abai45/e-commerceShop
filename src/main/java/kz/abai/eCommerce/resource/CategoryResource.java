@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import kz.abai.eCommerce.domain.Response;
 import kz.abai.eCommerce.dto.CategoryRemoveRequestDto;
 import kz.abai.eCommerce.dto.CategoryRequestDto;
+import kz.abai.eCommerce.dto.CategoryUpdateDto;
 import kz.abai.eCommerce.dto.SubCategoryRequestDto;
 import kz.abai.eCommerce.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +30,17 @@ public class CategoryResource {
     @PostMapping("/newcategory")
     public ResponseEntity<Response> newCategory(@RequestBody CategoryRequestDto categoryRequestDto, HttpServletRequest request) {
         var category = categoryService.newCategory(categoryRequestDto.getName(), categoryRequestDto.getDescription());
-        return ResponseEntity.ok().body(getResponse(request, Map.of("category", category), "New category created", OK));
+        return ResponseEntity.ok().body(getResponse(request, Map.of("Category created", category), "New category created", OK));
     }
     @PostMapping("/subcategory")
     public ResponseEntity<Response> newSubCategory(@RequestBody @Valid SubCategoryRequestDto subCategoryRequestDto, HttpServletRequest request) {
         var category = categoryService.newSubCategory(subCategoryRequestDto.getName(), subCategoryRequestDto.getDescription(), subCategoryRequestDto.getParentCategoryName());
-        return ResponseEntity.ok().body(getResponse(request, Map.of("subcategory", category), "New subcategory created", OK));
+        return ResponseEntity.ok().body(getResponse(request, Map.of("Subcategory created", category), "New subcategory created", OK));
+    }
+    @PostMapping("/update")
+    public ResponseEntity<Response> updateCategory(@RequestBody @Valid CategoryUpdateDto categoryUpdateDto, HttpServletRequest request) {
+        var category = categoryService.updateCategory(categoryUpdateDto.getName(), categoryUpdateDto.getNewName(), categoryUpdateDto.getDescription(), categoryUpdateDto.getParentCategory(), categoryUpdateDto.getStatus());
+        return ResponseEntity.ok().body(getResponse(request, Map.of("category", category), "Category updated", OK));
     }
     @PostMapping("/remove")
     public ResponseEntity<Response> removeCategory(@RequestBody @Valid CategoryRemoveRequestDto categoryRemoveRequestDto, HttpServletRequest request) {

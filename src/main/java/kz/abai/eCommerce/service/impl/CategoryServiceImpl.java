@@ -3,6 +3,7 @@ package kz.abai.eCommerce.service.impl;
 import jakarta.transaction.Transactional;
 import kz.abai.eCommerce.dto.CategoryDto;
 import kz.abai.eCommerce.entities.CategoryEntity;
+import kz.abai.eCommerce.enums.CategoryStatus;
 import kz.abai.eCommerce.mapper.CategoryMapper;
 import kz.abai.eCommerce.repository.CategoryRepository;
 import kz.abai.eCommerce.service.CategoryService;
@@ -39,10 +40,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto updateCategory(String name,String newName, String description, String parentCategoryName) {
+    public CategoryDto updateCategory(String name,String newName, String description, String parentCategoryName, String status) {
         var categoryEntity = getCategoryByName(name);
         categoryEntity.setName(newName);
         categoryEntity.setDescription(description);
+        categoryEntity.setStatus(CategoryStatus.valueOf(status.toUpperCase()));
         if(parentCategoryName !=null && !parentCategoryName.isBlank()) {
             var parentCategory = getCategoryByName(parentCategoryName);
             categoryEntity.setParentCategory(parentCategory);

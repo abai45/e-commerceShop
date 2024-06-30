@@ -88,21 +88,19 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodDto getGood(String goodId) {
-        var goodEntity = getGoodByGoodId(goodId);
-        return goodsMapper.toDto(goodEntity);
-    }
-
-    @Override
     public GoodDto getGoodBySlug(String slug) {
-        var goodEntity = goodsRepository.findBySlug(slug)
-                .orElseThrow(() -> new RuntimeException("Good by slug not found"));
+        var goodEntity = getGoodEntityBySlug(slug);
         return goodsMapper.toDto(goodEntity);
     }
 
     private GoodsEntity getGoodByGoodId(String goodId) {
         return goodsRepository.findByGoodId(goodId)
                 .orElseThrow(() -> new RuntimeException("Good by good id not found"));
+    }
+
+    private GoodsEntity getGoodEntityBySlug(String slug) {
+        return goodsRepository.findBySlug(slug)
+                .orElseThrow(() -> new RuntimeException("Good by slug not found"));
     }
 
     private CategoryEntity getCategoryByName(String categoryName) {

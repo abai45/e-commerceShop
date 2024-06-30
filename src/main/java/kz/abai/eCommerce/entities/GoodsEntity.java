@@ -16,8 +16,8 @@ import java.math.BigDecimal;
 @Table(name = "goods")
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class GoodsEntity extends Auditable{
-    @NotNull
-    private String goodId;
+    @Column(unique = true, updatable = false)
+    private String goodCode;
     @NotNull
     private String name;
     @NotNull

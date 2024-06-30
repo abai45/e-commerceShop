@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 @Setter
 public class GoodDto {
     @NotNull
+    private String goodCode;
+    @NotNull
     private String name;
     private String slug;
     private String description;
