@@ -39,12 +39,30 @@ public class ApiAuthentication extends AbstractAuthenticationToken {
     }
 
     @Override
+    public void setAuthenticated(boolean authenticated) {
+        throw new RuntimeException("You cannot set authentication");
+    }
+
+    @Override
     public Object getCredentials() {
-        return null;
+        return PASSWORD_PROTECTED;
     }
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return this.client;
+    }
+
+    @Override
+    public boolean isAuthenticated() {
+        return this.authenticated;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getEmail() {
+        return this.email;
     }
 }

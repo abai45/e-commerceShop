@@ -1,7 +1,9 @@
 package kz.abai.eCommerce.service.impl;
 
 import kz.abai.eCommerce.dto.ClientDto;
+import kz.abai.eCommerce.entities.ClientEntity;
 import kz.abai.eCommerce.enums.AuthorityEnum;
+import kz.abai.eCommerce.enums.LoginType;
 import kz.abai.eCommerce.mapper.ClientMapper;
 import kz.abai.eCommerce.repository.ClientRepository;
 import kz.abai.eCommerce.repository.RoleRepository;
@@ -30,4 +32,22 @@ public class ClientServiceImpl implements ClientService {
         return clientDto;
     }
 
+    @Override
+    public void updateLoginAttempt(String email, LoginType loginType) {
+        var clientEntity = getClientByEmail(email);
+        switch (loginType) {
+            case LOGIN_ATTEMPT -> {
+
+            }
+            case LOGIN_SUCCESS -> {
+
+            }
+        }
+
+    }
+
+    private ClientEntity getClientByEmail(String email) {
+        return clientRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User by email not found"));
+    }
 }
