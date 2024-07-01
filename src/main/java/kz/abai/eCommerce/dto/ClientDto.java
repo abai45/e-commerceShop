@@ -26,4 +26,5 @@ public class ClientDto {
     private Integer loginAttempts;
     private LocalDateTime lockTime;
     private RoleEntity roles;
+    private String authorities;
 }
