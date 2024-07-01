@@ -1,5 +1,7 @@
 package kz.abai.eCommerce.service.impl;
 
+import kz.abai.eCommerce.cache.CacheStore;
+import kz.abai.eCommerce.domain.RequestContext;
 import kz.abai.eCommerce.dto.ClientDto;
 import kz.abai.eCommerce.entities.ClientEntity;
 import kz.abai.eCommerce.enums.AuthorityEnum;
@@ -13,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import static java.time.LocalDateTime.now;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -20,6 +24,7 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final RoleRepository roleRepository;
     private final ClientUtils clientUtils;
+    private final CacheStore<String, Integer> cacheStore;
     private final ClientMapper clientMapper;
 
     @Override
@@ -35,15 +40,27 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void updateLoginAttempt(String email, LoginType loginType) {
         var clientEntity = getClientByEmail(email);
+        RequestContext.setClientId(clientEntity.getId());
         switch (loginType) {
             case LOGIN_ATTEMPT -> {
-
+                if(cacheStore.get(clientEntity.getEmail()) == null) {
+                    clientEntity.setLoginAttempts(0);
+                    clientEntity.setAccountNonLocked(true);
+                }
+                clientEntity.setLoginAttempts(clientEntity.getLoginAttempts()+1);
+                cacheStore.put(clientEntity.getEmail(), clientEntity.getLoginAttempts());
+                if(cacheStore.get(clientEntity.getPhone()) > 3) {
+                    clientEntity.setAccountNonLocked(false);
+                }
             }
             case LOGIN_SUCCESS -> {
-
+                clientEntity.setAccountNonLocked(true);
+                clientEntity.setLoginAttempts(0);
+                clientEntity.setLastLogin(now());
+                cacheStore.evict(clientEntity.getEmail());
             }
         }
-
+        clientRepository.save(clientEntity);
     }
 
     private ClientEntity getClientByEmail(String email) {
