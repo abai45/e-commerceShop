@@ -1,6 +1,5 @@
 package kz.abai.eCommerce.service;
 
-import kz.abai.eCommerce.entities.CategoryEntity;
 import kz.abai.eCommerce.repository.CategoryRepository;
 import kz.abai.eCommerce.utils.CategoryUtils;
 import org.junit.jupiter.api.Test;

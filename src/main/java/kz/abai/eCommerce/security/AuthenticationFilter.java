@@ -20,6 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.io.IOException;
 
+import static kz.abai.eCommerce.utils.RequestUtils.handleErrorResponse;
 import static org.springframework.http.HttpMethod.POST;
 
 @Slf4j
