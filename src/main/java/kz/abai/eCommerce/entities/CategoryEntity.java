@@ -31,7 +31,7 @@ public class CategoryEntity extends Auditable{
     private List<CategoryEntity> subCategories = new ArrayList<>();
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CategoryAttributeEntity> categoryAttribute = new ArrayList<>();
-    
+
     public void addSubCategory(CategoryEntity category) {
         subCategories.add(category);
         category.setParentCategory(this);
