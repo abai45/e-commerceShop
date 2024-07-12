@@ -22,5 +22,5 @@ public class AttributeValueEntity extends Auditable{
     private AttributeEntity attribute;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goods_id")
-    private GoodsEntity good;
+    private ProductEntity good;
 }

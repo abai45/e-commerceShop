@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class GoodDto {
+public class ProductDto {
     @NotNull
     private String goodCode;
     @NotNull

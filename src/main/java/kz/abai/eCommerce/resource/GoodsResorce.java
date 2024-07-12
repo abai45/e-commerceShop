@@ -3,8 +3,8 @@ package kz.abai.eCommerce.resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import kz.abai.eCommerce.domain.Response;
-import kz.abai.eCommerce.dto.GoodDto;
-import kz.abai.eCommerce.service.GoodsService;
+import kz.abai.eCommerce.dto.ProductDto;
+import kz.abai.eCommerce.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +19,16 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/goods")
 @RequiredArgsConstructor
 public class GoodsResorce {
-    private final GoodsService goodsService;
+    private final ProductService goodsService;
 
     @PostMapping("/addnew")
-    ResponseEntity<Response> addNewGood(@RequestBody @Valid GoodDto goodDto, HttpServletRequest request) {
-        var good = goodsService.addGood(goodDto.getName(), goodDto.getDescription(), goodDto.getImgUrl(), goodDto.getCategoryName(), goodDto.getCost());
+    ResponseEntity<Response> addNewGood(@RequestBody @Valid ProductDto productDto, HttpServletRequest request) {
+        var good = goodsService.addGood(productDto.getName(), productDto.getDescription(), productDto.getImgUrl(), productDto.getCategoryName(), productDto.getCost());
         return ResponseEntity.ok().body(getResponse(request, Map.of("good", good), "New good added", OK));
     }
     @PostMapping("/update/{slug}")
-    public ResponseEntity<Response> updateGood(@PathVariable String slug, @RequestBody @Valid GoodDto goodDto, HttpServletRequest request) {
-        var good = goodsService.updateGoodInfo(slug, goodDto.getName(), goodDto.getDescription(),  goodDto.getImgUrl(), goodDto.getCategoryName(), goodDto.getCost());
+    public ResponseEntity<Response> updateGood(@PathVariable String slug, @RequestBody @Valid ProductDto productDto, HttpServletRequest request) {
+        var good = goodsService.updateGoodInfo(slug, productDto.getName(), productDto.getDescription(),  productDto.getImgUrl(), productDto.getCategoryName(), productDto.getCost());
         return ResponseEntity.ok().body(getResponse(request, Map.of("good", good), "Good updated", OK));
     }
     @PostMapping("/delete/{slug}")
